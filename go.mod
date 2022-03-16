@@ -1,4 +1,4 @@
-module simpleinterface
+module github.com/naoyafurudono/simpleinterface
 
 go 1.18
 

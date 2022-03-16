@@ -1,7 +1,11 @@
 package a
 
 func f() {
-	// The pattern can be written in regular expression.
-	var gopher int // want "pattern"
-	print(gopher)  // want "identifier is gopher"
+	type X interface { // want "type spec"
+		int
+	}
+	type addable interface { // want "type spec" "overwrap int64" "overwrap float64"
+		int | int32 | int64 | float32 | float64
+		float64 | int64
+	}
 }

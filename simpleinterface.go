@@ -25,16 +25,28 @@ var Analyzer = &analysis.Analyzer{
 func run(pass *analysis.Pass) (interface{}, error) {
 	inspect := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 
-	nodeFilter := []ast.Node{
-		(*ast.Ident)(nil),
-	}
-
-	inspect.Preorder(nodeFilter, func(n ast.Node) {
+	inspect.Preorder(nil, func(n ast.Node) {
 		switch n := n.(type) {
-		case *ast.Ident:
-			if n.Name == "gopher" {
-				pass.Reportf(n.Pos(), "identifier is gopher")
+		case *ast.TypeSpec:
+			pass.Reportf(n.Pos(), "type spec")
+		case *ast.InterfaceType:
+			fmt.Println(util.ExtractIfaceElem(n))
+			lst := util.ExtractIfaceElem(n)
+			s := make(map[string]bool)
+			for _, ors := range lst {
+				for _, elem := range ors {
+					if s[elem] {
+						pass.Reportf(n.Pos(), "overwrap %s", elem)
+					}
+					s[elem] = true
+				}
 			}
+			// for i :=0; i < len(lst); i++ {
+			// 	for j:=0; j< len(lst); j++ {
+
+			// 	}
+			// }
+			// pass.Reportf(n.Pos(), "iface")
 		}
 	})
 

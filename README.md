@@ -56,7 +56,7 @@ type Done interface {
 }
 ```
 
-### Simple redundancy
+### DONE Simple redundancy
 
 Following is the simplest target example of this tool.
 

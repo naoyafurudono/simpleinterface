@@ -16,4 +16,13 @@ func f() {
 		addable
 		addable
 	}
+	type Z interface {
+		addable
+		X
+	}
+
+	type X1 interface {
+		int
+		~int
+	}
 }

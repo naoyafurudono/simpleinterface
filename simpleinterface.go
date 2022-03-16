@@ -40,12 +40,8 @@ func run(pass *analysis.Pass) (interface{}, error) {
 					s[elem] += 1
 				}
 			}
-			// for i :=0; i < len(lst); i++ {
-			// 	for j:=0; j< len(lst); j++ {
 
-			// 	}
-			// }
-			// pass.Reportf(n.Pos(), "iface")
+			ast.Print(nil, n)
 		}
 	})
 

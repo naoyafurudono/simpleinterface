@@ -15,6 +15,8 @@ Note to study the language spec and how to implement the tool.
     - use `ParserFile`
   - [type](https://pkg.go.dev/go/types@go1.18)
     - [interface](https://pkg.go.dev/go/types@go1.18#Interface)
+    - typeset : 欲しい機能がエクスポートされてない...
+      - [code](https://cs.opensource.google/go/go/+/refs/tags/go1.18:src/go/types/typeset.go)
 - golang-set
   - NOTE this is not suitable for our need ;-(
   - use slice and write code by myself
@@ -66,3 +68,23 @@ type Z interface {
 ```
 
 Y is redundant in Z.
+
+#### take care of underlying types
+
+it may advanced?
+
+```go
+type X interface {
+  int
+}
+
+type Y interface {
+  int | int64
+}
+
+type Z interface {
+  X
+  Y
+  ~int
+} // the type set is same as X
+```

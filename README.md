@@ -32,13 +32,12 @@ We can define `X` in more simple way:
 
 ```go
 type X0 interface {
-    addable
     mulable
 }
 ```
 
 Simple Interface will detect redundant interface definitions like of `X` and
-possibly modify it to simpler one (like `X0`).
+possibly (suggest?) modify it to simpler one (like `X0`).
 
 ## Current status
 

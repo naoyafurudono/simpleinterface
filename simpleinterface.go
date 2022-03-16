@@ -27,18 +27,17 @@ func run(pass *analysis.Pass) (interface{}, error) {
 
 	inspect.Preorder(nil, func(n ast.Node) {
 		switch n := n.(type) {
-		case *ast.TypeSpec:
-			pass.Reportf(n.Pos(), "type spec")
 		case *ast.InterfaceType:
 			fmt.Println(util.ExtractIfaceElem(n))
 			lst := util.ExtractIfaceElem(n)
-			s := make(map[string]bool)
+
+			s := make(map[string]int)
 			for _, ors := range lst {
 				for _, elem := range ors {
-					if s[elem] {
+					if s[elem] == 1 {
 						pass.Reportf(n.Pos(), "overwrap %s", elem)
 					}
-					s[elem] = true
+					s[elem] += 1
 				}
 			}
 			// for i :=0; i < len(lst); i++ {

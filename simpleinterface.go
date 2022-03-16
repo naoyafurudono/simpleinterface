@@ -1,8 +1,10 @@
 package simpleinterface
 
 import (
+	"fmt"
 	"go/ast"
 
+	"github.com/naoyafurudono/simpleinterface/util"
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"

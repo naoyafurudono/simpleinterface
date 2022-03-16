@@ -1,8 +1,7 @@
 package main
 
 import (
-	"simpleinterface"
-
+	"github.com/naoyafurudono/simpleinterface"
 	"golang.org/x/tools/go/analysis/unitchecker"
 )
 

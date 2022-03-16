@@ -3,9 +3,8 @@ package simpleinterface_test
 import (
 	"testing"
 
-	"simpleinterface"
-
 	"github.com/gostaticanalysis/testutil"
+	"github.com/naoyafurudono/simpleinterface"
 	"golang.org/x/tools/go/analysis/analysistest"
 )
 

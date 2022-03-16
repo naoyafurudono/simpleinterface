@@ -16,13 +16,12 @@ Note to study the language spec and how to implement the tool.
   - [type](https://pkg.go.dev/go/types@go1.18)
     - [interface](https://pkg.go.dev/go/types@go1.18#Interface)
 - golang-set
+  - NOTE this is not suitable for our need ;-(
+  - use slice and write code by myself
   - [github](https://github.com/deckarep/golang-set)
   - [doc](https://pkg.go.dev/github.com/deckarep/golang-set)
 
->scienceSlice := []interface{}{"Biology", "Chemistry"}
->scienceClasses := mapset.NewSetFromSlice(scienceSlice)
-
 ### what want to do
 
-1. extract interface definition from source code
-2. extract type-set
+1. DONE extract interface definition from source code
+2. DONE extract type-set

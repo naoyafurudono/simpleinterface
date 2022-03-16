@@ -23,5 +23,46 @@ Note to study the language spec and how to implement the tool.
 
 ### what want to do
 
-1. DONE extract interface definition from source code
-2. DONE extract type-set
+- DONE extract interface definition from source code
+- DONE extract type-set
+- redundant element in a union
+- redundant element in a sequence
+
+#### redundant element in a union
+
+```go
+type X interface {
+  int
+}
+
+type Y interface {
+  int | int64
+}
+
+type Z interface {
+  X | Y  // = Y
+}
+```
+
+X is redundant in Z.
+
+If we combine further, the problem become not easy to solve.
+
+#### redundant element in a sequence
+
+```go
+type X interface {
+  int
+}
+
+type Y interface {
+  int | int64
+}
+
+type Z interface {
+  X
+  Y
+} // the type set is same as X
+```
+
+Y is redundant in Z.

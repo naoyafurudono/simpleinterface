@@ -7,6 +7,20 @@ Note to study the language spec and how to implement the tool.
 - [Syntax](https://go.dev/ref/spec#Type_declarations) of type declaration
 - [Syntax](https://go.dev/ref/spec#Interface_types) of interface types
 
+### type set calculation
+
+|interface definition|type set|
+|:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+| `{ int }`                        | `int`                                  |
+| `{ ~int }`                       | all type whose underlying type is `int` |
+| `{}`                             | all non-interface types |
+| `{ x; y; z }`                    | intersection of type set of `x`, `y`, and `z` |
+| interface element                |    |
+| `Method() tp`                    | types whose method set include the method |
+| `X` where X is non-interface type | `{ X }`   |
+| `~T`                              | `{ S | T is the underlying type of S}` |
+| `t1|t2|...|tn`                    | disjoint union set of the type set of t1,...,tn |
+
 ## libraries
 
 - [go](https://pkg.go.dev/go@go1.18)
@@ -59,8 +73,13 @@ type Z interface {
 ```
 
 X is redundant in Z.
-
 If we combine further, the problem become not easy to solve.
+
+In general,  ai is an redundant element in union (a0 | ... | an) iff
+
+```go
+typeset( a0 |...| a(i-1) | a(i+1) |...| an ) = typeset( a0 |...| an )
+```
 
 #### redundant element in a sequence
 
@@ -79,7 +98,11 @@ type Z interface {
 } // the type set is same as X
 ```
 
-Y is redundant in Z.
+In general,  ai is an redundant element in product (a0 ; ... ; an) iff
+
+```go
+typeset( a0 ;...; a(i-1) ; a(i+1) ;...;an ) = typeset( a0 ;...; an )
+```
 
 #### take care of underlying types
 

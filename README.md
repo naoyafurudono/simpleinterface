@@ -42,69 +42,9 @@ The scope of this tool will be gradually extended.
 
 ### sample
 
-You can see the current ability at the test code.
-<!-- TODO testへのリンク-->
-
-## Current status
-
-Implement nothing.
-
-## Plan to implement
-
-### Existing analysis by the compiler
-
-Some kind of redundant definitions are detected by the Go compiler. They are out of our scope now.
-
-```go
-type Done interface {
-    addable | addable // compiler blames it
-}
-```
-
-### DONE Simple redundancy
-
-Following is the simplest target example of this tool.
-
-```go
-type Xs interface {
-        addable
-        addable
-}
-```
-
-### Complex case
-
-How about following.
-
-```go
-// 再掲
-type addable interface {
-        int | int32 | int64 | float32 | float64 | string
-}
-
-// 再掲
-type mulable interface {
-        int | int32 | int64 | float32 | float64
-}
-
-type integer interface {
-        int | int32 | int64
-}
-
-type float interface {
-        float32 | float64
-}
-
-type number interface {
-        integer | float
-}
-
-// same as addable (is it useful to be detected?)
-type nums interface {
-    number | string
-}
-```
+You can see the current ability at the
+[test code](https://github.com/naoyafurudono/simpleinterface/blob/main/testdata/src/a/a.go).
 
 ## Discussion about implementation
 
-see `memo.md`
+see [memo.md](https://github.com/naoyafurudono/simpleinterface/blob/main/memo.md).

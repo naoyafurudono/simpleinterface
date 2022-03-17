@@ -97,6 +97,8 @@ type number interface {
 type nums interface {
     number | string
 }
-
-
 ```
+
+## Discussion about implementation
+
+see `memo.md`

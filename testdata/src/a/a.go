@@ -3,15 +3,14 @@ package a
 func f() {
 	type X interface {
 		int | int64 | float64
-	} // --> int | int64 | float64
+	}
 
-	type addable interface { // want "overwrap int64" "overwrap float64"
+	type addable interface {
 		int | int32 | int64 | float32 | float64
-		float64 | int64
-	} // int64 | float64
+	}
 
 	// type set is empty (danger!)
-	type addable2 interface {
+	type addable2 interface { // want "empty"
 		int | int32 | int64 | float32
 		float64
 	} // -> {}
@@ -38,7 +37,7 @@ func f() {
 		~int
 	} // --> {}
 
-	type myStringer interface {
+	type myStringer interface { // want "method and embedded type"
 		String() string
 		X1
 	}
@@ -58,4 +57,19 @@ func f() {
 	type B3 interface {
 		B1 | B2 // = B2
 	}
+
+	// Myint or empty. MyintがString() string を実装しなかったらCの型セットは空
+	// メソッドを実装するかは静的にわかることなので、この定義は怪しい
+	// メソッドリストと~以外の basicではないインターフェース要素が同居しているときは警告
+	type C interface { // want "method and embedded type"
+		Myint
+		String() string
+	}
+
+	// do not blame it!
+	type Ok interface {
+		~int
+		String() string
+	}
+
 }

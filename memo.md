@@ -17,11 +17,23 @@ Note to study the language spec and how to implement the tool.
     - [interface](https://pkg.go.dev/go/types@go1.18#Interface)
     - typeset : 欲しい機能がエクスポートされてない...
       - [code](https://cs.opensource.google/go/go/+/refs/tags/go1.18:src/go/types/typeset.go)
+      - ライセンスがBSD likeで編集や再配布が許可されている。最悪コピペして取り込むか。どこまで取り込むか決めるのが大変そう。
+      - どうやらtype set は取得しないでも、上手にAPIを駆使すればなんとかなりそう
 - golang-set
   - NOTE this is not suitable for our need ;-(
   - use slice and write code by myself
   - [github](https://github.com/deckarep/golang-set)
   - [doc](https://pkg.go.dev/github.com/deckarep/golang-set)
+
+### 静的解析ツールの作り方
+
+- linterを作るなら skelton が便利（既に使っている）
+  - go/analysis を使ったツールの雛形を作ってくれる
+  - 抽象構文木と型データを自動で抽出する
+  - テストとソースを書く
+    - a以下のファイルをいじる
+    - inspectorは深さ優先探索を再帰ではなくforで書けるようにいい感じにしてくれる
+  - 型情報の取得には pass.TypesInfo.ObjectOfを使う
 
 ### what want to do
 

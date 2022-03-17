@@ -9,7 +9,7 @@ func ExtractIfaceElem(n ast.Node) [][]string {
 	switch n := n.(type) {
 	case *ast.InterfaceType:
 		res := make([][]string, len(n.Methods.List))
-		for _, field := range n.Methods.List {
+		for _, field := range n.Methods.List { // nil check
 			res = append(res, extractOrElems(field.Type))
 		}
 		return res

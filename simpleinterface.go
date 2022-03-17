@@ -1,7 +1,6 @@
 package simpleinterface
 
 import (
-	"fmt"
 	"go/ast"
 
 	"github.com/naoyafurudono/simpleinterface/util"
@@ -28,20 +27,8 @@ func run(pass *analysis.Pass) (interface{}, error) {
 	inspect.Preorder(nil, func(n ast.Node) {
 		switch n := n.(type) {
 		case *ast.InterfaceType:
-			fmt.Println(util.ExtractIfaceElem(n))
-			lst := util.ExtractIfaceElem(n)
+			util.Check(pass, n)
 
-			s := make(map[string]int)
-			for _, ors := range lst {
-				for _, elem := range ors {
-					if s[elem] == 1 {
-						pass.Reportf(n.Pos(), "overwrap %s", elem)
-					}
-					s[elem] += 1
-				}
-			}
-
-			ast.Print(nil, n)
 		}
 	})
 

@@ -19,7 +19,7 @@ Note to study the language spec and how to implement the tool.
 | `Method() tp`                    | types whose method set include the method |
 | `X` where X is non-interface type | `{ X }`   |
 | `~T`                              | `{ S | T is the underlying type of S}` |
-| `t1|t2|...|tn`                    | disjoint union set of the type set of t1,...,tn |
+| `t1|t2|...|tn`                    | union set of the type set of t1,...,tn |
 
 ## libraries
 

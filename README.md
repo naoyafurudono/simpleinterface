@@ -1,4 +1,4 @@
-# Simple Interface
+# Simple Interface [![Go Reference](https://pkg.go.dev/badge/github.com/naoyafurudono/simpleinterface.svg)](https://pkg.go.dev/github.com/naoyafurudono/simpleinterface)
 
 Simple interface is static analysis tool for Go1.18.
 The purpose of this tool is to warn complected or unintended definitions of interfaces.

@@ -34,11 +34,15 @@ The scope of this tool will be gradually extended.
 
 ## Installation
 
-<!-- TODO -->
+```sh
+go install github.com/naoyafurudono/simpleinterface/cmd/simpleinterface@latest
+```
 
 ## Usage
 
-<!-- TODO -->
+```sh
+go vet -vettool=`which simpleinterface` target-name
+```
 
 ### sample
 

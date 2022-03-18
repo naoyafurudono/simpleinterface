@@ -1,6 +1,11 @@
 package a
 
 func f() {
+	type basic interface {
+		Method1() string
+		Method2()
+	}
+
 	type X interface {
 		int | int64 | float64
 	}
@@ -10,11 +15,14 @@ func f() {
 	}
 
 	// type set is empty (danger!)
-	type addable2 interface { // want "empty"
+	type empty interface { // TODOwant "empty"
 		int | int32 | int64 | float32
 		float64
-	} // -> {}
+	}
 
+	// --------- over wrap ---------
+
+	// do not blame many times
 	type addables interface { // want "overwrap addable"
 		addable
 		addable
@@ -22,7 +30,7 @@ func f() {
 		addable
 		addable
 		addable
-	} // --> addable = int64 | float64
+	}
 
 	type Z interface { // want "overwrap X"
 		addable
@@ -30,40 +38,20 @@ func f() {
 		X
 	} // --> int64
 
-	type Myint int
-	type x = interface{}
-	type X1 interface {
-		int64 | addable // ok
-		~int
-	} // --> {}
+	// --------- method with no method ---------
 
+	// addable or empty. addableがString() string を実装しなかったら型セットは空
+	// このインターフェースを実装する型はaddableの型セットに属していて、String() string を持たないといけない
+	// addableの型セットはコンパイル時に決まるので、このインターフェースは不自然
+	// メソッドリストと~以外の basicではないインターフェース要素が同居しているときは警告
 	type myStringer interface { // want "method and embedded type"
 		String() string
-		X1
+		addable
 	}
 
-	type A interface {
-		addable | X
-	} // --> {int, int64, float64}
-
-	type B1 interface {
-		int
-	}
-
-	type B2 interface {
-		int | int64
-	}
-
-	type B3 interface {
-		B1 | B2 // = B2
-	}
-
-	// Myint or empty. MyintがString() string を実装しなかったらCの型セットは空
-	// メソッドを実装するかは静的にわかることなので、この定義は怪しい
-	// メソッドリストと~以外の basicではないインターフェース要素が同居しているときは警告
-	type C interface { // want "method and embedded type"
-		Myint
+	type ok interface { // ok
 		String() string
+		basic
 	}
 
 	// do not blame it!
@@ -71,5 +59,29 @@ func f() {
 		~int
 		String() string
 	}
+
+	type intlike interface {
+		~int
+	}
+
+	type corner interface { // ok
+		intlike
+		String() string
+	}
+}
+
+func g() {
+	type MyInt interface {
+		int
+	}
+
+	type MyInt2 interface {
+		int
+	}
+
+	type MyMyInt interface {
+		MyInt
+		~int
+	} // MyInt
 
 }
